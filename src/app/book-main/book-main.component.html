@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+    <div class="container px-4 px-lg-5" >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="col-md-12">
+                <form #filtersForm="ngForm"  >
+
+                    <div class="row justify-content-center" >
+
+                        <div class="col-md-4">
+                            <input type="text" ngModel class="form-control" name="bookTitle" id="bookTitle"
+                                placeholder="Search book by name..." (ngModelChange)="applyFilters(filtersForm)">                       
+                        </div>
+                        <div class="col-md-3">
+                            <select ngModel class="form-select form-select-md" aria-label=".form-select-sm example" 
+                                name="selectedCategory" id="selectedCategory" (ngModelChange)="applyFilters(filtersForm)"
+                                [value] = "'all categories'">
+                                <option selected value="all categories">All Categories</option>
+                                <option value="nature">Nature</option>
+                                <option value="scienceandtechnology">Science and Technology</option>
+                                <option value="fiction">Fiction</option>
+                                <option value="healthandfitness">Health and Fitness</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<br><br>
+<book-list></book-list>

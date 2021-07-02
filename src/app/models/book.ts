@@ -1,8 +1,11 @@
 export interface Book {
-    id: number;
+    book_id: number;
     title: string;
-    description: string;
+    author_id: number;
+    descr: string;
+    image_url: string;
     price: number;
-    category: number;
-
+    units_in_stock: number;
+    cat_id: number;
+    rating: number;
 }
