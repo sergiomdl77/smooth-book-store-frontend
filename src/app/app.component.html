@@ -1,15 +1,19 @@
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+    <!-- Main Navigation Bar -->
+    <!-- "fixed-top" was added to keep navbar always visible. The inner navbar had to have
+     added the class "sticky-top". To avoid the overlaying of both navbars I had to add
+     modifications the bottom of file "styles.css" (after core bootstrap css) in which
+     sticky-top and fixed-top had to get "padding-top:56px" for this to work. -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar fixed-top">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="#!">Smooth Book Store</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" routerLink="books" aria-current="page" href="#!">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="about" href="#!">About</a></li>
                 </ul>
                 <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
+                    <button class="btn btn-outline-dark" type="submit" routerLink="cart">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -18,24 +22,17 @@
             </div>
         </div>
     </nav>
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Quench your Reading Thirst</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With our extensive book selection</p>
-            </div>
-        </div>
-    </header>
-    <!-- Section-->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
 
-            <book-main></book-main>
+    <!-- Current Page Content -->
+    <section >
+        <div class="container px-4 px-lg-5 mt-5"  >
+            <!-- <router-outlet (activate)="resetBookSearchResults()"></router-outlet>  -->
+            <router-outlet (activate)="resetBooksFromLastSearchedCategory"></router-outlet> 
 
         </div>
     </section>
+    
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
+    <footer class="py-3 bg-dark fixed-bottom" >
         <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Smooth Book Store 2021</p></div>
     </footer>

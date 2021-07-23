@@ -11,8 +11,8 @@ export class BookService {
   private apiServerUrl = environment.baseUrl;
   public bookSearchResults: Book[] = [];
   public currentCategory: string = '';
-  public lastBookTitleSearched: string = '';
-  // public currentCategoryBooks: Book[] = [];
+  public currentBookTitleSearched: string = '';
+  public currentCategoryBooks: Book[] = [];
 
   // Injecting the built in HttpClient to make http requests to backend
   constructor(private http: HttpClient) {}

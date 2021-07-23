@@ -2,6 +2,7 @@ import { BookService } from './service/book.service';
 import { Component } from '@angular/core';
 import { Book } from 'src/app/models/book';
 import { HttpErrorResponse } from '@angular/common/http';
+import { $ } from 'protractor';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.getBooks();
+    this.bookService.currentCategory = 'all categories'
   }
 
 
@@ -23,7 +25,9 @@ export class AppComponent {
   {
     this.bookService.getAllBooks().subscribe(
       (response: Book[]) => {
-        this.bookService.bookSearchResults = response;
+        this.bookService.currentCategoryBooks = response;
+        this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -31,4 +35,8 @@ export class AppComponent {
     );
   }
 
+  public resetBooksFromLastSearchedCategory(): void{
+    this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
+  }
 }
+

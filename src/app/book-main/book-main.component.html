@@ -1,4 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar sticky-top">
+<!-- Navigation Bar for Search Box for Books by Name -->
+<!-- "sticky-top" was added to keep navbar always visible. It the main navbar had to have
+     added the class "fixed-top". To avoid the overlaying of both navbars I had to add
+     modifications the bottom of file "styles.css" (after core bootstrap css) in which
+     sticky-top and fixed-top had to get "padding-top:56px" for this to work. -->
+<nav class="navbar navbar-expand-lg navbar-light navbar sticky-top" style="background-color: white;" > 
     <div class="container px-4 px-lg-5" >
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -7,21 +12,38 @@
 
                     <div class="row justify-content-center" >
 
-                        <div class="col-md-4">
+     
+                        <!-- CATEGORY Select/Dropdown menu -->
+                        <div class="col-md-5">
+
+                            <div class="row">
+                                <div class="col-md-4" style="padding-top: 6px; color:grey">
+                                    Choose Category
+                                </div>
+                                <div class="col-md-6 justify-content-left" style="padding-left: 0px; margin-left:0px">
+                                    <select ngModel class="form-select form-select-md" aria-label=".form-select-sm example" 
+                                        name="selectedCategory" id="selectedCategory" (ngModelChange)="applyFilters(filtersForm)">
+                                        <option value="all categories" selected  id="allCategoriesOption" >All Categories</option>
+                                        <option value="nature" id="natureOption" >Nature</option>
+                                        <option value="scienceandtechnology" id="scienceAndTechOption" >Science and Technology</option>
+                                        <option value="fiction" id="fictionOption">Fiction</option>
+                                        <option value="healthandfitness" id="healthandfitnessOption">Health and Fitness</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                                                <!-- SEARCH BOOKS BY NAME text-box -->
+                        <div class=" col-md-4 form-group has-search">
+                            <span class="fa fa-search form-control-feedback"></span>
+                            <!-- <input type="text" ngModel class="form-control" name="bookTitle" id="bookTitle"
+                                placeholder="Search book by name..."  (ngModelChange)="applyFilters(filtersForm)"
+                                [value]="bookService.currentBookTitleSearched"> -->
                             <input type="text" ngModel class="form-control" name="bookTitle" id="bookTitle"
-                                placeholder="Search book by name..." (ngModelChange)="applyFilters(filtersForm)">                       
+                                placeholder="Search book by name..."  (ngModelChange)="applyFilters(filtersForm)"
+                                [value]="bookService.currentBookTitleSearched">
+
                         </div>
-                        <div class="col-md-3">
-                            <select ngModel class="form-select form-select-md" aria-label=".form-select-sm example" 
-                                name="selectedCategory" id="selectedCategory" (ngModelChange)="applyFilters(filtersForm)"
-                                [value] = "'all categories'">
-                                <option selected value="all categories">All Categories</option>
-                                <option value="nature">Nature</option>
-                                <option value="scienceandtechnology">Science and Technology</option>
-                                <option value="fiction">Fiction</option>
-                                <option value="healthandfitness">Health and Fitness</option>
-                            </select>
-                        </div>
+
                     </div>
 
                 </form>
@@ -32,4 +54,6 @@
 </nav>
 
 <br><br>
+<h2> {{ this.getCurrentCategoryHeaderText() }} </h2>
+<br>
 <book-list></book-list>

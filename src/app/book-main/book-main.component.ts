@@ -17,17 +17,15 @@ export class BookMainComponent{
 
 
   public filterByCategory(selectedCategory: string, smallerBookTitleToSearch: boolean): void{
-    if (selectedCategory === "")
-      selectedCategory = "all categories";
-
-    if(this.bookService.currentCategory != selectedCategory || smallerBookTitleToSearch)
+    if(this.bookService.currentCategory != selectedCategory)
     {
       this.bookService.currentCategory = selectedCategory;
       if (selectedCategory === 'all categories')
       {
         this.bookService.getAllBooks().subscribe(
           (response: Book[]) => {
-            this.bookService.bookSearchResults = response;
+            this.bookService.currentCategoryBooks = response;
+            this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
           },
           (error: HttpErrorResponse) => {
             alert(error.message);
@@ -37,39 +35,44 @@ export class BookMainComponent{
       else{
         this.bookService.getBooksByCategory(selectedCategory).subscribe(
           (response: Book[]) => {
-            this.bookService.bookSearchResults = response;
+            this.bookService.currentCategoryBooks = response;
+            this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
           },
           (error: HttpErrorResponse) => {
             alert(error.message);
           }
         );      
       }
+      this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
     }
   }
-
 
   // If there was at least one letter in "search by name" text input, this method will modify the list of restaurant 
   // search results (which is a property of the restaurantService to be available to several components) to then be 
   // deliver the final result from filtering chain.
   public filterByName(bookTitle:string): void{
-    let categoryFilterResults = this.bookService.bookSearchResults;
+  //  let categoryFilterResults = this.bookService.bookSearchResults;
 
     if (bookTitle !== "")          // if there is at least one letter in filter by name (text input)
     {
       this.bookService.bookSearchResults = [];
-      for (let book of categoryFilterResults)
+      for (let book of this.bookService.currentCategoryBooks)
       {
         if (book.title.toLowerCase().indexOf(bookTitle.toLowerCase()) !== -1)
           this.bookService.bookSearchResults.push(book);
       }
     }
+    else 
+      this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
+
   }
 
   public getBooks(): void
   {
     this.bookService.getAllBooks().subscribe(
       (response: Book[]) => {
-        this.bookService.bookSearchResults = response;
+        this.bookService.currentCategoryBooks = response;
+        this.bookService.bookSearchResults = this.bookService.currentCategoryBooks;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -77,20 +80,52 @@ export class BookMainComponent{
     );
   }
 
+  public getBooksOfCurrentCategory(selectedCategory: string){
+    this.bookService.getBooksByCategory(selectedCategory).subscribe(
+      (response: Book[]) => {
+        this.bookService.bookSearchResults = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );      
+  }
+
+
+  public getCurrentCategoryHeaderText(): string{
+    let header = 'Book Selection from ';
+
+    if (this.bookService.currentCategory === "all categories")
+      header+= '"All Categories"';
+    if (this.bookService.currentCategory === "scienceandtechnology")
+      header+= '"Science and Technology"';
+    if (this.bookService.currentCategory === "healthandfitness")
+      header+= '"Health and Fitness"';
+    if (this.bookService.currentCategory === "nature")
+      header+= '"Nature"';
+    if (this.bookService.currentCategory === "fiction")
+      header+= '"Fiction"';
+      
+    return header;
+  }
 
   public applyFilters(filters: NgForm): void {
     let smallerBookTitleToSearch = false;
+    let newBookTitleSearched = filters.value.bookTitle;
 
     // If the user deleted a character from the Book Search text box, we enable a flag to signal it.
     // This will indicate the Filter logic to reload the bookSearchResults with all books of the 
     // current category searched
-    if (filters.value.bookTitle.length < this.bookService.lastBookTitleSearched.length)
+
+/*
+    if (newBookTitleSearched.length < this.bookService.currentBookTitleSearched.length)
       smallerBookTitleToSearch = true;
+*/
 
     this.filterByCategory(filters.value.selectedCategory, smallerBookTitleToSearch);
-    this.filterByName(filters.value.bookTitle);
+    this.filterByName(newBookTitleSearched);
 
-    this.bookService.lastBookTitleSearched = filters.value.bookTitle;
+    this.bookService.currentBookTitleSearched = newBookTitleSearched;
 
     console.log(filters.value);
   }
