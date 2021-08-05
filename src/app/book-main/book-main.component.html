@@ -3,7 +3,10 @@
      added the class "fixed-top". To avoid the overlaying of both navbars I had to add
      modifications the bottom of file "styles.css" (after core bootstrap css) in which
      sticky-top and fixed-top had to get "padding-top:56px" for this to work. -->
-<nav class="navbar navbar-expand-lg navbar-light navbar sticky-top" style="background-color: white;" > 
+
+<!-- <nav class="navbar navbar-expand-lg navbar-light navbar sticky-top" style="background-color: rgb(227, 231, 233);" >  -->
+
+<nav class="navbar navbar-expand-lg navbar-light navbar sticky-top" style="background-color:lightblue;" > 
     <div class="container px-4 px-lg-5" >
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -39,7 +42,7 @@
                                 placeholder="Search book by name..."  (ngModelChange)="applyFilters(filtersForm)"
                                 [value]="bookService.currentBookTitleSearched"> -->
                             <input type="text" ngModel class="form-control" name="bookTitle" id="bookTitle"
-                                placeholder="Search book by name..."  (ngModelChange)="applyFilters(filtersForm)"
+                                [placeholder]="displayBookTitleIfAny()"  (ngModelChange)="applyFilters(filtersForm)"
                                 [value]="bookService.currentBookTitleSearched">
 
                         </div>
@@ -53,7 +56,10 @@
     </div>
 </nav>
 
-<br><br>
-<h2> {{ this.getCurrentCategoryHeaderText() }} </h2>
-<br>
+<div class="container px-4 px-lg-5" >
+    <br><br>
+    <h2> {{ this.getCurrentCategoryHeaderText() }} </h2>
+    <br>
+</div>
+
 <book-list></book-list>

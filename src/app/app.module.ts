@@ -12,6 +12,7 @@ import { BookMainComponent } from './book-main/book-main.component';
 import { AboutMainComponent } from './about-main/about-main.component';
 import { CartMainComponent } from './cart-main/cart-main.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BookMainComponent,
     AboutMainComponent,
     CartMainComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BookDetailsComponent
   ],
   imports: [
     BrowserModule,

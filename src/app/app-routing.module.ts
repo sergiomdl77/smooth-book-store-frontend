@@ -1,3 +1,4 @@
+import { BookDetailsComponent } from './book-details/book-details.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookMainComponent } from './book-main/book-main.component';
@@ -9,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 
 const routes: Routes = [
+  { path: 'books/:book_id', component: BookDetailsComponent },
   { path: 'books', component: BookMainComponent },
   { path: 'about', component: AboutMainComponent },
   { path: 'cart', component: CartMainComponent },

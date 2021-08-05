@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Component({
@@ -91,6 +92,13 @@ export class BookMainComponent{
     );      
   }
 
+  public displayBookTitleIfAny(): string{
+    let message = "";
+    if (this.bookService.currentBookTitleSearched === "")
+      return "Search Book by Name..."
+    else
+      return this.bookService.currentBookTitleSearched;
+  }
 
   public getCurrentCategoryHeaderText(): string{
     let header = 'Book Selection from ';
@@ -105,7 +113,7 @@ export class BookMainComponent{
       header+= '"Nature"';
     if (this.bookService.currentCategory === "fiction")
       header+= '"Fiction"';
-      
+
     return header;
   }
 

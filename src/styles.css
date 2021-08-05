@@ -10896,9 +10896,9 @@ textarea.form-control-lg {
 /* I made this modification to keep the navigation bars from collapsing.  */
 
 body {
-  padding-top: 5px;
+  padding-top: 0px;
 }
 
 .sticky-top {
-  padding-top: 56px;
+  padding-top: 62px;
 }
